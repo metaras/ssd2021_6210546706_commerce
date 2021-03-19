@@ -1,0 +1,25 @@
+.row-mt2 
+    h1 = @product.title
+
+.row-mt2
+    .col
+      table.table.table-border
+        thead.thead-dark
+          tr
+            th ID
+            th Title
+            th Description
+            th Price
+            th In Stock
+        tbody
+            tr
+              td = @product.id
+              td = @product.title
+              td = @product.description
+              td = @product.price
+              td = @product.stock
+.row-mt2
+    .col-12
+      .float-right
+        div = link_to product_path
+          = button_tag 'Back', class: 'btn btn-primary'
