@@ -37,8 +37,6 @@
               td = a.stock
               td.font-weight-light = "#{time_ago_in_words(a.created_at)} Ago"
               td.font-weight-light = "#{time_ago_in_words(a.updated_at)} Ago"
-              / td = a.created_at.to_date
-              / td = a.updated_at.to_date
               td
                 span
                   = link_to product_path(a) do
@@ -58,4 +56,4 @@
     .col-6
       .float-right
         div = link_to new_product_path
-          = button_tag 'Add new article', class: 'btn btn-primary'
+          = button_tag 'Add new product', class: 'btn btn-primary'
