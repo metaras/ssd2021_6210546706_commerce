@@ -36,7 +36,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Article.find(params[:id])
+    @product = Product.find(params[:id])
     @product.destroy
     redirect_to action: :index
   end
@@ -44,7 +44,6 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:title, :description, :price, :stock)
+    params.require(:product).permit(:title, :description, :price, :stock, category_ids: [])
   end
-   
 end

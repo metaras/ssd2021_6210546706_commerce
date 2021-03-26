@@ -1,0 +1,58 @@
+.row-mt2
+    .col-6
+        h1 Category list
+.row
+    .col
+        span =  link_to 'Product', products_path
+    .col-6
+        .float-right
+        - if current_admin
+            span = current_admin.email
+            span.ml-3 = "#{current_admin.firstname} #{current_admin.lastname}"
+            span.ml-3 = link_to 'Logout', destroy_admin_session_path, method: :delete
+        - else 
+            span.ml-3 = link_to 'Login', new_admin_session_path
+
+.row-mt2
+  .col
+    = form_tag categories_path, method: :get do
+    = text_field_tag 'search', @search, class: 'form-control', placeholder: 'Type something'
+.row-mt2
+    .col
+      table.table.table-border.table-striped.table-hover
+        thead.thead-dark
+          tr
+            th ID
+            th Category
+            th Description
+            th Created at
+            th Updated at
+            th Action
+        tbody
+          - @categories.each do |a|
+            tr
+              td = a.id
+              td = a.name
+              td = a.description
+              td.font-weight-light = "#{time_ago_in_words(a.created_at)} Ago"
+              td.font-weight-light = "#{time_ago_in_words(a.updated_at)} Ago"
+              td
+                span
+                  = link_to category_path(a) do
+                    i.fas.fa-eye
+                - if current_admin 
+                  span.ml-3
+                    = link_to edit_category_path(a) do
+                      i.fas.fa-pen
+                  span.ml-3
+                    = link_to category_path(a), method: :delete, data:{ confirm: "Are you sure?" } do
+                      i.fas.fa-trash
+
+.row
+  - if current_admin 
+    .col-6
+      = paginate @categories
+    .col-6
+      .float-right
+        div = link_to new_category_path
+          = button_tag 'Add new category', class: 'btn btn-primary'

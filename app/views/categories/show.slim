@@ -1,0 +1,25 @@
+.row-mt2 
+    h1 = @category.name
+
+.row-mt2
+    .col
+      table.table.table-border
+        thead.thead-dark
+          tr
+            th ID
+            th Category
+            th Description
+            th Create at
+            th Update at
+        tbody
+            tr
+              td = @category.id
+              td = @category.name
+              td = @category.description
+              td.font-weight-light = "#{time_ago_in_words(@category.created_at)} Ago"
+              td.font-weight-light = "#{time_ago_in_words(@category.updated_at)} Ago"
+.row-mt2
+    .col-12
+      .float-right
+        div = link_to categories_path
+          = button_tag 'Back', class: 'btn btn-primary'

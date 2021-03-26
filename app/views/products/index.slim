@@ -1,6 +1,9 @@
-.row
+.row-mt2
   .col-6
     h1 Product list
+.row
+  .col
+    span =  link_to 'Category', categories_path
   .col-6
     .float-right
     - if current_admin
@@ -16,7 +19,7 @@
       = text_field_tag 'search', @search, class: 'form-control', placeholder: 'Type something'
 .row-mt2
     .col
-      table.table.table-border
+      table.table.table-border.table-striped.table-hover
         thead.thead-dark
           tr
             th ID
@@ -24,7 +27,8 @@
             th Description
             th Price
             th In Stock
-            th Created at
+            th Categories
+            / th Created at
             th Updated at
             th Action
         tbody
@@ -35,7 +39,8 @@
               td = a.description
               td = a.price
               td = a.stock
-              td.font-weight-light = "#{time_ago_in_words(a.created_at)} Ago"
+              td = a.categories&.map(&:name)&.join(', ').presence || 'N/A'
+              / td.font-weight-light = "#{time_ago_in_words(a.created_at)} Ago"
               td.font-weight-light = "#{time_ago_in_words(a.updated_at)} Ago"
               td
                 span
