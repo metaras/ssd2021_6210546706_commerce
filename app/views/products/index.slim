@@ -1,24 +1,33 @@
 .row.mt-2
-  .col
-    h1 Product list
-.row.mt-2
-  .col-3
-    span =  link_to categories_path
-      = button_tag 'Categories', class: 'btn btn-primary'
-  .col-3
+  .col-9
+    h2 Product list
+  .col-3 
     .float-right
-      - if current_admin
-          span = current_admin.email
-          span.ml-3 = "#{current_admin.firstname} #{current_admin.lastname}"
-          span.ml-3 = link_to 'Logout', destroy_admin_session_path, method: :delete
-      - else 
-          span.ml-3 = link_to 'Login', new_admin_session_path
-  .col-4
+      span = current_admin.email
+.row.mt-2
+  .col-6
     = form_tag products_path, method: :get do
     = text_field_tag 'search', @search, class: 'form-control', placeholder: 'Type something'
+
+  .col-2
+    .float-right
+      - if current_admin
+          span.ml-3 = "#{current_admin.firstname} #{current_admin.lastname}"
+          span.ml-3 = link_to destroy_admin_session_path, method: :delete
+                    = button_tag 'Logout', class: 'btn btn-secondary float-right'
+      - else 
+          span.ml-3 = link_to new_admin_session_path
+                    = button_tag 'Login', class: 'btn btn-secondary float-right'
+
   .col-2 
-    = link_to products_path(format: :csv) do 
-      = button_tag 'Download CSV', class: 'btn btn-secondary float-right'
+    .float-right
+      span.ml-3 = link_to products_path(format: :csv) do 
+        = button_tag 'Download CSV', class: 'btn btn-secondary float-right'
+
+  .col-2
+    .float-right
+      span.ml-3 = link_to categories_path
+        = button_tag 'Categories', class: 'btn btn-primary'
 
 .row.mt-2
     .col
@@ -57,25 +66,19 @@
                     = link_to product_path(a), method: :delete, data:{ confirm: "Are you sure?" } do
                       i.fas.fa-trash
 
-div 
-  hr
-.row.mt-2 
-  div = "Add product by choose file or add one"
+hr
 .row.mt-2
+  .col-6
+    = paginate @products
   - if current_admin 
-    .col-6
-      = paginate @products
-    .col-3 
+    .col-2
       .float-right
         = form_tag products_csv_upload_path, multipart: true do
           div = file_field_tag :csv_file
           div = submit_tag :upload
-          / = button_tag 'Add new product by CSV', class: 'btn btn-primary'
-    .col-3
+    .col-2
       .float-right
         div = link_to new_product_path
           = button_tag 'Add new product', class: 'btn btn-primary'
-div 
-  hr
-.row.mt-2 
+hr
   

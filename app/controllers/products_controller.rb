@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
     @search = params[:search]
     @products = Product.all
     @products = @products.where("title LIKE? or body LIKE ?", "%#{@search}%", "%#{@search}%") if @search.present?
-    @products = @products.page(params[:page]).per(30)
+    @products = @products.page(params[:page]).per(7)
 
     respond_to do |format|
       format.html
