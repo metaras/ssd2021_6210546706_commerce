@@ -4,4 +4,5 @@
   div = f.number_field :price, placeholder: 'Price'
   div = f.number_field :stock, placeholder: 'In the stock'
   div = f.collection_check_boxes :category_ids, Category.all, :id, :name
+  div = f.select :status, Product.statuses.keys
   div = f.submit 'Confirm'

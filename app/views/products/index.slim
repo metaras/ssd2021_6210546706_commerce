@@ -2,10 +2,10 @@
   .col
     h1 Product list
 .row.mt-2
-  .col
+  .col-3
     span =  link_to categories_path
       = button_tag 'Categories', class: 'btn btn-primary'
-  .col-6
+  .col-3
     .float-right
       - if current_admin
           span = current_admin.email
@@ -13,11 +13,13 @@
           span.ml-3 = link_to 'Logout', destroy_admin_session_path, method: :delete
       - else 
           span.ml-3 = link_to 'Login', new_admin_session_path
-
-.row.mt-2
-  .col
+  .col-4
     = form_tag products_path, method: :get do
     = text_field_tag 'search', @search, class: 'form-control', placeholder: 'Type something'
+  .col-2 
+    = link_to products_path(format: :csv) do 
+      = button_tag 'Download CSV', class: 'btn btn-secondary float-right'
+
 .row.mt-2
     .col
       table.table.table-border.table-striped.table-hover
@@ -29,6 +31,7 @@
             th Price
             th In Stock
             th Categories
+            th Status
             th Updated at
             th Action
         tbody
@@ -40,6 +43,7 @@
               td = a.price
               td = a.stock
               td = a.categories&.map(&:name)&.join(', ').presence || 'N/A'
+              td = a.status
               td.font-weight-light = "#{time_ago_in_words(a.updated_at)} Ago"
               td
                 span
@@ -53,11 +57,25 @@
                     = link_to product_path(a), method: :delete, data:{ confirm: "Are you sure?" } do
                       i.fas.fa-trash
 
+div 
+  hr
+.row.mt-2 
+  div = "Add product by choose file or add one"
 .row.mt-2
   - if current_admin 
     .col-6
       = paginate @products
-    .col-6
+    .col-3 
+      .float-right
+        = form_tag products_csv_upload_path, multipart: true do
+          div = file_field_tag :csv_file
+          div = submit_tag :upload
+          / = button_tag 'Add new product by CSV', class: 'btn btn-primary'
+    .col-3
       .float-right
         div = link_to new_product_path
           = button_tag 'Add new product', class: 'btn btn-primary'
+div 
+  hr
+.row.mt-2 
+  
