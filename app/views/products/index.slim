@@ -2,8 +2,9 @@
   .col-9
     h2 Product list
   .col-3 
-    .float-right
-      span = current_admin.email
+    - if current_admin
+      .float-right
+        span = current_admin.email
 .row.mt-2
   .col-6
     = form_tag products_path, method: :get do
