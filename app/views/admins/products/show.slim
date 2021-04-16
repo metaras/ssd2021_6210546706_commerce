@@ -9,6 +9,7 @@
             th ID
             th Title
             th Description
+            th Images
             th Price
             th In Stock
         tbody
@@ -16,10 +17,13 @@
               td = @product.id
               td = @product.title
               td = @product.description
+              td 
+                - @product.images.each do |image|
+                  = image_tag image, width: '32px'
               td = @product.price
               td = @product.stock
 .row-mt2
     .col-12
       .float-right
-        div = link_to products_path
+        div = link_to admins_products_path
           = button_tag 'Back', class: 'btn btn-primary'

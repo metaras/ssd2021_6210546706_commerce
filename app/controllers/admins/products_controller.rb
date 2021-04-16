@@ -1,4 +1,4 @@
-class ProductsController < ApplicationController
+class Admins::ProductsController < ApplicationController
 
   before_action :authenticate_admin!, except: [:index, :show]
   def index
@@ -55,6 +55,12 @@ class ProductsController < ApplicationController
     redirect_to action: :index
   end
 
+  def delete_image_attachment
+    @images = ActiveStorage::Attachment.find(params[:id])
+    @images.purge
+    redirect_to action: :index
+  end
+
   private
 
   def generate_csv(products)
@@ -62,6 +68,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:title, :description, :price, :stock, :status, :preview_image, :images, category_ids: [])
+    params.require(:product).permit(:title, :description, :price, :stock, :status, :preview_image, category_ids: [], images: [])
   end
 end

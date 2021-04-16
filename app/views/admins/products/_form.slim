@@ -1,0 +1,33 @@
+
+= form_with model: [:admins, product] do |f|
+  div Product:
+  div = f.text_field :title, placeholder: 'Title'
+  div = f.text_area :description, placeholder: 'Write description here'
+  div = f.number_field :price, placeholder: 'Price'
+  div = f.number_field :stock, placeholder: 'In the stock'
+  div Preview Images:
+  div 
+    - if @product.preview_image.attached?
+        = image_tag @product.preview_image, width: '90px'
+    - else
+        = f.file_field :preview_image
+  div 
+    - if @product.preview_image.attached?
+      = link_to 'Delete Preview', delete_image_attachment_admins_product_path(@product.preview_image.id), method: :delete,
+        data: { confirm: 'Are you sure to delete the preview' }, class: 'btn btn-danger'
+  div Image: 
+  div = f.file_field :images, multiple: true
+  div Catagory
+  div = f.collection_check_boxes :category_ids, Category.all, :id, :name
+  div
+    - if @product.images.attached?
+      - @product.images.each do |image|
+        div 
+          span
+            = image_tag image, width: '80px'
+          span.ml-2
+            = link_to 'Delete Image', delete_image_attachment_admins_product_path(image.id), method: :delete,
+              data: { confirm: 'Are you sure to delete the preview' }, class: 'btn btn-danger'
+  div Status
+  div = f.select :status, Product.statuses.keys
+  div = f.submit 'Confirm'

@@ -1,11 +1,21 @@
 Rails.application.routes.draw do
   devise_for :admins
-  root "products#index"
+  root "admins/products#index"
 
-  namespace :products do
-    post 'csv_upload'
+  namespace :admins do
+
+    namespace :products do
+      post 'csv_upload'
+    end
+
+    resources :products do
+      member do
+        delete 'delete_image_attachment'
+      end
+    end
+    
+    resources :products
+    resources :categories
+
   end
-  
-  resources :products
-  resources :categories
 end

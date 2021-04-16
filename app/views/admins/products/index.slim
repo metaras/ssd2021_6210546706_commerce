@@ -7,7 +7,7 @@
         span = current_admin.email
 .row.mt-2
   .col-6
-    = form_tag products_path, method: :get do
+    = form_tag admins_products_path, method: :get do
     = text_field_tag 'search', @search, class: 'form-control', placeholder: 'Type something'
 
   .col-2
@@ -22,12 +22,12 @@
 
   .col-2 
     .float-right
-      span.ml-3 = link_to products_path(format: :csv) do 
+      span.ml-3 = link_to admins_products_path(format: :csv) do 
         = button_tag 'Download CSV', class: 'btn btn-secondary float-right'
 
   .col-2
     .float-right
-      span.ml-3 = link_to categories_path
+      span.ml-3 = link_to admins_categories_path
         = button_tag 'Categories', class: 'btn btn-primary'
 
 .row.mt-2
@@ -39,7 +39,8 @@
             th Title
             th Description
             th Price
-            th In Stock
+            th Stock
+            th Image
             th Categories
             th Status
             th Updated at
@@ -54,19 +55,22 @@
               td = a.description
               td = a.price
               td = a.stock
+              td 
+                - a.images.each do |image|
+                  = image_tag image, width: '32px'
               td = a.categories&.map(&:name)&.join(', ').presence || 'N/A'
               td = a.status
               td.font-weight-light = "#{time_ago_in_words(a.updated_at)} Ago"
               td
                 span
-                  = link_to product_path(a) do
+                  = link_to admins_product_path(a) do
                     i.fas.fa-eye
                 - if current_admin 
                   span.ml-3
-                    = link_to edit_product_path(a) do
+                    = link_to edit_admins_product_path(a) do
                       i.fas.fa-pen
                   span.ml-3
-                    = link_to product_path(a), method: :delete, data:{ confirm: "Are you sure?" } do
+                    = link_to admins_product_path(a), method: :delete, data:{ confirm: "Are you sure?" } do
                       i.fas.fa-trash
 
 hr
@@ -76,12 +80,12 @@ hr
   - if current_admin 
     .col-2
       .float-right
-        = form_tag products_csv_upload_path, multipart: true do
+        = form_tag admins_products_csv_upload_path, multipart: true do
           div = file_field_tag :csv_file
           div = submit_tag :upload
     .col-2
       .float-right
-        div = link_to new_product_path
+        div = link_to new_admins_product_path
           = button_tag 'Add new product', class: 'btn btn-primary'
 hr
   
