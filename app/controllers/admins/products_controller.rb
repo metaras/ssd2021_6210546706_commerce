@@ -58,7 +58,7 @@ class Admins::ProductsController < ApplicationController
   def delete_image_attachment
     @images = ActiveStorage::Attachment.find(params[:id])
     @images.purge
-    redirect_to action: :index
+    redirect_to action: :edit
   end
 
   private

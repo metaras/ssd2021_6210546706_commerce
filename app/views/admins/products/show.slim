@@ -6,7 +6,7 @@
       table.table.table-border
         thead.thead-dark
           tr
-            th ID
+            th Preview
             th Title
             th Description
             th Images
@@ -14,12 +14,14 @@
             th In Stock
         tbody
             tr
-              td = @product.id
+              td
+                - if @product.preview_image.attached?
+                  = image_tag @product.preview_image, width: '64px'
               td = @product.title
               td = @product.description
               td 
                 - @product.images.each do |image|
-                  = image_tag image, width: '32px'
+                  = image_tag image, width: '60px'
               td = @product.price
               td = @product.stock
 .row-mt2
