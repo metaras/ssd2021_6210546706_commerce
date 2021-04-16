@@ -35,7 +35,7 @@
       table.table.table-border.table-striped.table-hover
         thead.thead-dark
           tr
-            th ID
+            th Preview
             th Title
             th Description
             th Price
@@ -47,7 +47,9 @@
         tbody
           - @products.each do |a|
             tr
-              td = a.id
+              td
+                - if a.preview_image.attached?
+                  = image_tag a.preview_image, width: '64px'
               td = a.title
               td = a.description
               td = a.price

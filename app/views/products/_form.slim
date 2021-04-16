@@ -1,8 +1,13 @@
 = form_with model: @product do |f|
+  div Product:
   div = f.text_field :title, placeholder: 'Title'
   div = f.text_area :description, placeholder: 'Write description here'
   div = f.number_field :price, placeholder: 'Price'
   div = f.number_field :stock, placeholder: 'In the stock'
+  div Images:
+  div = f.file_field :preview_image
+  div Catagory
   div = f.collection_check_boxes :category_ids, Category.all, :id, :name
+  div Status
   div = f.select :status, Product.statuses.keys
   div = f.submit 'Confirm'
