@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   devise_for :admins
-  root "admins/products#index"
+  # root "admins/products#index"
+  root 'homes#index'
+
+  resources :homes, only: :index
 
   namespace :admins do
 

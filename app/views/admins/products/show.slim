@@ -1,8 +1,47 @@
 .row-mt2 
-    h1 = @product.title
+    h2 Product details:
 
-.row-mt2
-    .col
+hr
+
+.row
+  .col-6
+    .card
+      .card-img-top
+        - if @product.preview_image.attached?
+          = image_tag @product.preview_image, width: '100%'
+      //.col-md-8 
+      .card-body
+          .card-title 
+            h3 = @product.title
+          .row 
+            .col 
+              = @product.price
+          .row 
+            .col 
+              = @product.stock
+          .row 
+            .col 
+              = @product.categories&.map(&:name)&.join(', ').presence || 'N/A'
+          .row 
+            .col 
+              = @product.status
+          .row 
+            .col
+               = "#{time_ago_in_words(@product.updated_at)} Ago"
+  .col-6
+    .card
+      .card-body
+          .row 
+            .col 
+              = @product.description
+    .card
+      .card-body
+          .row 
+            .col 
+              - @product.images.each do |image|
+                = image_tag image, width: '128px'
+
+/ .row-mt2
       table.table.table-border
         thead.thead-dark
           tr
@@ -19,13 +58,22 @@
                   = image_tag @product.preview_image, width: '64px'
               td = @product.title
               td = @product.description
-              td 
+              td
                 - @product.images.each do |image|
                   = image_tag image, width: '60px'
               td = @product.price
               td = @product.stock
+
 .row-mt2
     .col-12
       .float-right
-        div = link_to admins_products_path
-          = button_tag 'Back', class: 'btn btn-primary'
+        - if current_admin 
+          .row
+            span.ml-6
+               = link_to edit_admins_product_path(@product)
+                = button_tag 'Edit', class: 'btn btn-primary'
+            span.ml-6 = link_to admins_products_path
+                = button_tag 'Back', class: 'btn btn-primary'
+        - else 
+          div = link_to homes_path
+            = button_tag 'Back', class: 'btn btn-primary'
