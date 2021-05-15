@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   devise_for :admins
-  # root "admins/products#index"
   root 'homes#index'
 
-  resources :homes, only: :index
-
+  resources :homes, only: :index do
+    match '/create_order' => 'homes#create_order', via: [:get, :post]
+  end
+  resources :user
   namespace :admins do
 
     namespace :products do

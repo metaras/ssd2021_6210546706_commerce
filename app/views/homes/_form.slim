@@ -1,0 +1,6 @@
+= form_with model: @user do |f|
+    div = f.text_field :name, placeholder: 'Customer name'
+    div = f.text_area :address, placeholder: 'Address'
+    div = f.number_field :tell, placeholder: 'Tellephone number'
+    div = f.number_field :amount, placeholder: 'Amount'
+    div = f.submit 'Confirm'

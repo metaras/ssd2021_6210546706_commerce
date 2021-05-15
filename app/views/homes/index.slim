@@ -4,25 +4,27 @@
       = link_to 'Go to admin section', admins_products_path
 h2 Welcome to our Store
 - @products.each do |product|
-  .row.mt-2
-    .col
-        .card
-            .card-body
-                .row
-                    .col-2
-                        - if product.preview_image.attached?
-                            = image_tag product.preview_image, width: '100%'
-                    .col-4
-                        .row
-                            .col
-                                h3 = product.title
-                        .row
-                            .col
-                                = product.price
-                        .row.mt-3
-                            .col-6
-                                div = link_to admins_product_path(product) do
-                                    = button_tag 'More detail', class: 'btn btn-secondary btn-comment' 
+    .row.mt-2
+        .col
+            .card
+                .card-body
+                    .row
+                        .col-2
+                            - if product.preview_image.attached?
+                                = image_tag product.preview_image, width: '100%'
+                        .col-4
+                            .row
+                                .col
+                                    h3 = product.title
+                            .row
+                                .col
+                                    = product.price
+                            .row.mt-3
+                                .col-6
+                                    div = link_to admins_product_path(product) do
+                                        = button_tag 'More detail', class: 'btn btn-secondary btn-comment' 
+                                    div = link_to home_create_order_path(product)
+                                        = button_tag 'buy now', class: 'btn btn-secondary btn-comment' 
     / .col-6
     /     .card
     /         .card-body

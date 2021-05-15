@@ -6,7 +6,7 @@
       .float-right
         span = current_admin.email
 .row.mt-2
-  .col-6
+  .col-4
     = form_tag admins_products_path, method: :get do
     = text_field_tag 'search', @search, class: 'form-control', placeholder: 'Type something'
 
@@ -29,6 +29,10 @@
     .float-right
       span.ml-3 = link_to admins_categories_path
         = button_tag 'Categories', class: 'btn btn-primary'
+  / .col-2
+  /   .float-right
+  /     span.ml-3 = link_to user_index_path
+  /       = button_tag 'Orders', class: 'btn btn-primary'
 
 .row.mt-2
     .col

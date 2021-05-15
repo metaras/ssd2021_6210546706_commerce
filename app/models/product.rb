@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
     has_many :product_categories
     has_many :categories, through: :product_categories
+    has_many :user, dependent: :destroy
 
     enum status: { draft: 0, published: 1, archived: 2 }
 
