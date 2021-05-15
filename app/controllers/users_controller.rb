@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
 
   def index
-    @products = Product.all
-    @products = @products.page(params[:page]).per(7)
+    @users = User.all
+    @users = @users.page(params[:page]).per(7)
   end
 
   def show
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :address, :tell)
+    params.require(:user).permit(:name, :address, :tell, :amount)
   end
 
 end

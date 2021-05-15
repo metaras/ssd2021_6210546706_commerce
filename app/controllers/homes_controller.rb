@@ -10,7 +10,7 @@ class HomesController < ApplicationController
       address = params['address']
       tell = params['tell']
       amount = params['amount']
-      @user = @products.user.create(product_id: @product, name: customer_name, address: address, tell: tell)
+      @user = @products.user.create(product_id: @product, name: customer_name, address: address, tell: tell, amount: amount)
 
       redirect_to '/'
     end

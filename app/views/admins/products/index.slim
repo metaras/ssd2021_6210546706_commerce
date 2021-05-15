@@ -26,13 +26,15 @@
         = button_tag 'Download CSV', class: 'btn btn-secondary float-right'
 
   .col-2
+    -if current_admin
+      .float-right
+        span.ml-3 = link_to users_path
+          = button_tag 'Orders', class: 'btn btn-primary'
+
+  .col-2
     .float-right
       span.ml-3 = link_to admins_categories_path
         = button_tag 'Categories', class: 'btn btn-primary'
-  / .col-2
-  /   .float-right
-  /     span.ml-3 = link_to user_index_path
-  /       = button_tag 'Orders', class: 'btn btn-primary'
 
 .row.mt-2
     .col

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :homes, only: :index do
     match '/create_order' => 'homes#create_order', via: [:get, :post]
   end
-  resources :user
+  resources :users
   namespace :admins do
 
     namespace :products do
